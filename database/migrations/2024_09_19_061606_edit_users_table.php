@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('avatar')->nullable();
+            $table->string('privilege', 255)->default('common');
+            $table->foreign('privilege')
+                ->references('name')->on('privileges');
+        });
     }
 
     /**
@@ -19,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('avatar', 'privilege');
+        });
     }
 };

@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images_for_posts', function (Blueprint $table) {
-            $table->id();
+            $table->text('path')->primary();
+            $table->uuid('post_id');
+            $table->foreign('post_id')
+                ->references('id')->on('comments')->cascadeOnDelete();
             $table->timestamps();
         });
     }

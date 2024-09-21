@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('content', 1000)->nullable();
+            $table->uuid('post_id');
+            $table->foreign('post_id')
+                ->references('id')->on('posts')->cascadeOnDelete();
+            $table->uuid('author');
+            $table->foreign('author')
+                ->references('id')->on('users')->nullOnDelete();
             $table->timestamps();
         });
     }
