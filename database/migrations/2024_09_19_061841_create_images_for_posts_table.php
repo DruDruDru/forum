@@ -15,7 +15,7 @@ return new class extends Migration
             $table->text('path')->primary();
             $table->uuid('post_id');
             $table->foreign('post_id')
-                ->references('id')->on('comments')->cascadeOnDelete();
+                ->references('id')->on('posts')->cascadeOnDelete();
             $table->timestamps();
         });
     }
