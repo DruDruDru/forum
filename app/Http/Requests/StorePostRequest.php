@@ -51,8 +51,11 @@ class StorePostRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new ValidationException($validator, response()->json([
-            'message' => 'Ошибка валидации',
-            'errors' => $validator->errors(),
+            'error' => [
+                'status_code' => 422,
+                'message' => 'Ошибка валидации',
+                'details' => $validator->errors()
+            ],
         ], 422));
     }
 }
